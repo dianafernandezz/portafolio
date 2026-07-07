@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Portafolio Profesional - Diana Fernández</title>
+    <!-- CDNs de Bootstrap, Iconos y Devicons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+    
+    <style>
+        /* Desplazamiento Suave */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Personalización de la Barra de Desplazamiento */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fff0f5; 
+        }
+        body.dark-mode ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d63384; 
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0b132b; 
+        }
+
+        /* Estilos personalizados generales */
+        body {
+            background-color: #fff0f5 !important;
+            color: #212529 !important;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        /* Degradado Moderno en Cabeceras */
+        .bg-dark-portfolio {
+            background: linear-gradient(135deg, #0b132b 0%, #1c2541 100%) !important;
+        }
+        .text-sweet { color: #d63384; }
+        .bg-sweet { background-color: #d63384; color: white; }
+        
+        /* Efecto Hover y Elevación de Tarjetas */
+        .card {
+            background-color: #ffffff;
+            color: #212529;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12) !important;
+        }
+
+        /* Estilos para la Línea de Tiempo de Trayectoria */
+        .timeline {
+            border-left: 3px solid #d63384;
+            position: relative;
+            padding-left: 20px;
+        }
+        .timeline-item {
+            position: relative;
+            padding-bottom: 25px;
+        }
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -27px;
+            top: 5px;
+            background: #0b132b;
+            border: 3px solid #d63384;
+            border-radius: 50%;
+            width: 12px;
+            height: 12px;
+        }
+
+        /* Estilos dinámicos para el Modo Oscuro */
+        body.dark-mode {
+            background-color: #1a1a1a !important;
+            color: #f8f9fa !important;
+        }
+        body.dark-mode .card {
+            background-color: #2d2d2d !important;
+            color: #ffffff !important;
+            border: 1px solid #444 !important;
+        }
+        body.dark-mode .text-muted {
+            color: #b0b0b0 !important;
+        }
+        body.dark-mode .text-dark,
+        body.dark-mode h3, body.dark-mode h5, body.dark-mode h6, body.dark-mode .card-title {
+            color: #ffffff !important;
+        }
+        body.dark-mode .timeline {
+            border-left-color: #0dcaf0;
+        }
+        body.dark-mode .card-img-top {
+            background-color: #3d3d3d !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barra de Estado Superior -->
+    <div class="bg-secondary text-white py-1 small">
+        <div class="container d-flex justify-content-between align-items-center">
+            <span><i class="bi bi-info-circle-fill me-1"></i> Estado: En Línea</span>
+            <span id="fecha-hora-actual" class="fw-semibold">Cargando fecha...</span>
+        </div>
+    </div>
+
+    <!-- Menú de Navegación (Navbar) -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark-portfolio sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#home"><i class="bi bi-code-slash text-info"></i> Mi Portafolio</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto fw-semibold">
+                    <li class="nav-item"><a class="nav-link" href="#home">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#sobre-mi">Sobre mí</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#habilidades">Habilidades</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#proyectos">Proyectos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+                </ul>
+                <button class="btn btn-outline-info btn-sm ms-lg-3 mt-2 mt-lg-0" id="btnTema">
+                    <i class="bi bi-moon-fill"></i> Modo Oscuro
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Encabezado Principal (Hero Section) -->
+    <header id="home" class="text-white bg-dark-portfolio py-5 text-center text-lg-start">
+        <div class="container py-5">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-7">
+                    <div id="alertaBienvenida"></div>
+                    <h1 class="display-4 fw-bold">Hola, soy <span class="text-info">Diana Fernández</span></h1>
+                    <p class="lead text-white-50">Estudiante de Ingeniería Informática. Me enfoco en crear software moderno, estructurar bases de datos y diseñar soluciones lógicas funcionales.</p>
+                    <div class="mt-4 d-flex flex-wrap gap-2 justify-content-center justify-content-lg-start">
+                        <a href="#proyectos" class="btn btn-info btn-lg fw-bold shadow"><i class="bi bi-eye"></i> Ver mis proyectos</a>
+                        <a href="cv.pdf" download="CV_Diana_Fernandez.pdf" class="btn btn-outline-light btn-lg fw-bold shadow"><i class="bi bi-download"></i> Descargar CV</a>
+                    </div>
+                </div>
+                <div class="col-lg-5 text-center">
+                    <i class="bi bi-person-workspace display-1 text-info"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sección: Sobre Mí -->
+    <section id="sobre-mi" class="container my-5 py-4">
+        <div class="card border-0 shadow-sm p-4 rounded-4">
+            <div class="row align-items-center">
+                <div class="col-md-3 text-center mb-3 mb-md-0">
+                    <i class="bi bi-mortarboard-fill text-sweet display-2"></i>
+                </div>
+                <div class="col-md-9">
+                    <h3 class="fw-bold text-dark"><i class="bi bi-person-fill text-sweet"></i> Sobre mí</h3>
+                    <hr class="text-sweet border-2 opacity-50 w-25">
+                    <p class="text-muted">Actualmente curso la carrera de Ingeniería Informática. Me enfoco firmemente en el desarrollo backend, diseño arquitectónico de bases de datos relacionales y optimización de flujos de lógicas complejas.</p>
+                    <p class="text-muted">Disfruto resolver problemas lógicos, aplicar patrones de diseño estructurados y construir código limpio que impacte positivamente a la experiencia final del usuario.</p>
+                    
+                    <div class="mt-4 text-center text-md-start">
+                        <button class="btn btn-primary fw-semibold px-4 py-2 shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTrayectoria" aria-expanded="false" aria-controls="collapseTrayectoria">
+                            Más información
+                        </button>
+                    </div>
+
+                    <div class="collapse" id="collapseTrayectoria">
+                        <div class="mt-4 pt-3 border-top">
+                            <h5 class="fw-bold text-dark mb-3"><i class="bi bi-briefcase-fill text-primary"></i> Educación y Proyectos Académicos</h5>
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <span class="badge bg-sweet mb-1">En curso</span>
+                                    <h6 class="fw-bold text-dark mb-0">Carrera de Ingeniería Informática</h6>
+                                    <small class="text-muted d-block mb-2"><i class="bi bi-building"></i> Formación Universitaria Superior</small>
+                                    <p class="text-muted small mb-0">Profundizando conocimientos en algoritmos avanzados, metodologías de ingeniería de software (SDLC), lenguajes orientados a objetos, cálculo, geometría analítica y estructuración avanzada de sistemas.</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <span class="badge bg-dark-portfolio mb-1">2026</span>
+                                    <h6 class="fw-bold text-dark mb-0">Desarrollo y Modelado de "SpendControl"</h6>
+                                    <small class="text-muted d-block mb-2"><i class="bi bi-code-square"></i> Proyecto de Gestión Corporativa</small>
+                                    <p class="text-muted small mb-0">Lideré el análisis de requerimientos y el diseño del backend para un sistema enfocado en la administración, reembolso y rendición de gastos corporativos, integrando bases de datos relacionales sólidas.</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <span class="badge bg-secondary mb-1">2025</span>
+                                    <h6 class="fw-bold text-dark mb-0">Sistemas de Escritorio Orientados a Objetos</h6>
+                                    <small class="text-muted d-block mb-2"><i class="bi bi-laptop"></i> Proyectos de Programación</small>
+                                    <p class="text-muted small mb-0">Implementación de módulos CRUD interactivos y robustos utilizando lenguajes estructurados como Java (Swing) bajo el patrón arquitectónico clásico de Modelo-Vista-Controlador (MVC).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección: Habilidades -->
+    <section id="habilidades" class="container my-5 py-4 text-center">
+        <h3 class="fw-bold text-dark mb-4"><i class="bi bi-stars text-warning"></i> Mis Habilidades Técnicas</h3>
+        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-5 g-4 justify-content-center">
+            <div class="col">
+                <div class="card h-100 border-0 border-top border-danger border-3 shadow-sm p-3 rounded-3"><i class="bi bi-filetype-java text-danger fs-1 mb-2"></i><h6 class="fw-bold">Java (OOP / MVC)</h6></div>
+            </div>
+            <div class="col">
+                <div class="card h-100 border-0 border-top border-success border-3 shadow-sm p-3 rounded-3"><i class="devicon-csharp-plain text-success display-5 d-block mb-2"></i><h6 class="fw-bold">C# (.NET)</h6></div>
+            </div>
+            <div class="col">
+                <div class="card h-100 border-0 border-top border-primary border-3 shadow-sm p-3 rounded-3"><i class="bi bi-database-fill text-primary fs-1 mb-2"></i><h6 class="fw-bold">PostgreSQL & SQL</h6></div>
+            </div>
+            <div class="col">
+                <div class="card h-100 border-0 border-top border-purple border-3 shadow-sm p-3 rounded-3" style="border-top-color: #7952b3 !important;"><i class="bi bi-bootstrap-fill fs-1 mb-2" style="color: #7952b3;"></i><h6 class="fw-bold">Bootstrap 5</h6></div>
+            </div>
+            <div class="col">
+                <div class="card h-100 border-0 border-top border-warning border-3 shadow-sm p-3 rounded-3"><i class="bi bi-filetype-js text-warning fs-1 mb-2"></i><h6 class="fw-bold">JavaScript (ES6)</h6></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección: Proyectos Dinámicos -->
+    <section id="proyectos" class="container my-5 py-4">
+        <h3 class="fw-bold text-dark mb-4 text-center">
+            <i class="bi bi-folder-fill text-primary"></i> Proyectos Destacados
+        </h3>
+        <!-- El JS rellenará este div -->
+        <div class="row g-4 justify-content-center" id="contenedor-proyectos"></div>
+    </section>
+
+    <!-- Sección: Contacto -->
+    <section id="contacto" class="container my-5 py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-sm border-0 p-4 rounded-4">
+                    <h3 class="fw-bold text-dark text-center mb-4"><i class="bi bi-envelope-at-fill text-info"></i> Contacto</h3>
+                    <div id="mensajeFeedback"></div>
+
+                    <form id="formContacto" novalidate>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Nombre Completo</label>
+                            <input type="text" id="txtContactoNombre" class="form-control" placeholder="Tu nombre...">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Correo Electrónico</label>
+                            <input type="email" id="txtContactoEmail" class="form-control" placeholder="nombre@correo.com">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Mensaje o Consulta</label>
+                            <textarea id="txtContactoMensaje" class="form-control" rows="4" placeholder="Escribe tu mensaje aquí..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-dark w-100 fw-bold py-2 shadow-sm">
+                            <i class="bi bi-send-fill me-1"></i> Enviar Mensaje
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pie de Página (Footer) -->
+    <footer class="bg-dark-portfolio text-white py-4 mt-5">
+        <div class="container text-start text-md-center">
+            <p class="mb-0 fs-6">&copy; 2026 Diana Fernández. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Botón Flotante "Volver Arriba" -->
+    <a href="#home" class="btn btn-info position-fixed bottom-0 end-0 m-4 rounded-circle shadow" style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; z-index: 1050;" aria-label="Volver arriba">
+        <i class="bi bi-arrow-up-short fs-4 fw-bold"></i>
+    </a>
+
+    <!-- Bootstrap Bundle con Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Archivo Lógico JS Externo -->
+    <script src="script.js"></script>
+</body>
+</html>
